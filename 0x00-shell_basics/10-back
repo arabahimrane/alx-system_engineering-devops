@@ -1,3 +1,2 @@
 #!/bin/bash
-cd /tmp/var
-echo '$(pwd)'
+cd /var

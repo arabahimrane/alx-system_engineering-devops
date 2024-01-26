@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#displays my ouwn PID with $$ or BASHPID
+ps auxf

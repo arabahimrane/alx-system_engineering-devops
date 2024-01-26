@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#Programs that are detached from the terminal and running in the background
+#are called daemons or processes, need to be managed. The general minimum set
+#of instructions is: start, restart and stop. The most popular way of doing
+#so on Unix system is to use the init scripts.
+
+pid_file="/var/run/my_process.pid"
+script_file="./manage_my_process"
+
+start() {
+	$script_file &
+	PD=$!
+	echo $PD > "$pid_file"
+	echo "manage_my_process started"
+}
+stop() {
+	PD=$(cat "$pid_file")
+	kill "$PD"
+	rm -rf "$pid_file"
+	echo "manage_my_process stopped"
+}
+
+restart() {
+	PD=$(cat "$pid_file")
+	kill "$PD"
+	rm -rf "$pid_file"
+	
+	$script_file &
+	PD=$!
+	echo $PD > "$pid_file"
+
+	echo "manage_my_process restarted"
+}
+
+case "$1" in
+	start) start
+	;;
+	stop) stop
+	;;
+	restart) restart
+	;;
+	*) echo "Usage: manage_my_process {start|stop|restart}"
+	;;
+esac

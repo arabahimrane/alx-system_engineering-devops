@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#kill last process child
+#ps auxf | grep "bash"
+kill "$(pgrep -f infinity)"
+

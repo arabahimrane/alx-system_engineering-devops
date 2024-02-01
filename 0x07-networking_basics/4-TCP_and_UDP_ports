@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# soccet concept ip and protocol (udp/tcp) and port
+
+netstat -lp

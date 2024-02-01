@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+#destry network lke changing hosts withi
+hostname -I | cut -d ' ' -f1 ; hostname -i

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Install nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+
+echo 'Hello World' | sudo tee /var/www/html/index.html
+echo "page not found" | sudo tee /var/www/html/404.html
+chmod -R 755 /var/www
+sudo tee /etc/nginx/sites-available/default > /dev/null <<EOL
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    if (\$request_filename ~ redirect_me){
+        rewrite ^ https://www.youtube.com/@tpauldike permanent;
+    }
+}
+EOL
+
+if sudo service nginx status > /dev/null; then
+    sudo service nginx restart
+else
+    sudo service nginx start
+fi

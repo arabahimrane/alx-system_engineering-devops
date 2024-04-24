@@ -1,32 +1,22 @@
-#!/usr/bin/python3
-""" for a given employee ID, returns information about his/her TODO list """
-
 import csv
-from requests import get
+import requests
 import sys
 
+def export_employee_todo_list(employee_id):
+    # Get the employee's details
+    employee = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}').json()
+    # Get the employee's TODOs
+    todos = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}/todos').json()
 
-def get_employee_progress(em_id):
-    """ func to get data from api """
-    emp_infos = get('https://jsonplaceholder.typicode.com/users/{}/'
-                    .format(em_id)).json()
-    emp_progress = get('https://jsonplaceholder.typicode.com/users/{}/todos'
-                       .format(em_id)).json()
+    # Prepare data for CSV
+    data = []
+    for todo in todos:
+        data.append([employee_id, employee['username'], todo['completed'], todo['title']])
 
-    with open('{}.csv'.format(sys.argv[1]), 'w', newline='') as f:
-        data = csv.writer(f, quoting=csv.QUOTE_ALL)
-        for it in emp_progress:
-            data.writerow([
-                it['userId'],
-                emp_infos['username'],
-                str(it['completed']),
-                it['title']
-                ])
-
+    # Write data to CSV
+    with open(f'{employee_id}.csv', 'w', newline='') as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+        writer.writerows(data)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./0-gather_data_from_an_API.py <employee_id>")
-    else:
-        employee_id = int(sys.argv[1])
-        get_employee_progress(employee_id)
+    export_employee_todo_list(int(sys.argv[1]))

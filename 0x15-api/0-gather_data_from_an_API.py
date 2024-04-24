@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ for a given employee ID, returns information about his/her TODO list """
 
-from requests import get
+from requests import get # type: ignore
 import sys
 
 

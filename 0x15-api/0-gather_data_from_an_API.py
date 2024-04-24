@@ -7,7 +7,7 @@ import sys
 
 def get_employee_progress(em_id):
     """ func to get data from api """
-    emp_infos = get('https://jsonplaceholder.typicode.com/users/{}/'
+    emp_infos = get('https://jsonplaceholder.typicode.com/users/{em_id}/'
                     .format(em_id)).json()
     emp_progress = get('https://jsonplaceholder.typicode.com/users/{}/todos'
                        .format(em_id)).json()

@@ -1,44 +1,30 @@
 #!/usr/bin/env bash
-#Programs that are detached from the terminal and running in the background
-#are called daemons or processes, need to be managed. The general minimum set
-#of instructions is: start, restart and stop. The most popular way of doing
-#so on Unix system is to use the init scripts.
+# Manages the program called manage_my_process
 
-pid_file="/var/run/my_process.pid"
-script_file="./manage_my_process"
+FILE="/var/run/my_process.pid"
 
-start() {
-	$script_file &
-	PD=$!
-	echo $PD > "$pid_file"
-	echo "manage_my_process started"
-}
-stop() {
-	PD=$(cat "$pid_file")
-	kill "$PD"
-	rm -rf "$pid_file"
-	echo "manage_my_process stopped"
+create()
+{
+    sudo touch $FILE
+    sudo bash -c "echo $$ > $FILE"
 }
 
-restart() {
-	PD=$(cat "$pid_file")
-	kill "$PD"
-	rm -rf "$pid_file"
-	
-	$script_file &
-	PD=$!
-	echo $PD > "$pid_file"
+if [ "$1" == "start" ]; then
+    create
+    ./manage_my_process &
+    echo "manage_my_process started"
 
-	echo "manage_my_process restarted"
-}
+elif [ "$1" == "stop" ]
+then
+    [ -e "/var/run/my_process.pid" ] && sudo pkill -f "./manage_my_process" && rm /var/run/my_process.pid
+    echo "manage_my_process stopped"
 
-case "$1" in
-	start) start
-	;;
-	stop) stop
-	;;
-	restart) restart
-	;;
-	*) echo "Usage: manage_my_process {start|stop|restart}"
-	;;
-esac
+elif [ "$1" == "restart" ]
+then
+    $0 stop >& /dev/null
+    $0 start >& /dev/null
+    echo "manage_my_process restarted"
+
+else
+    echo "Usage: manage_my_process {start|stop|restart}"
+fi

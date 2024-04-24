@@ -1,1 +1,1 @@
-this is 0x00-shell_basics directory
+a readme file for the working folder

@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-#destry network lke changing hosts withi
-
+# Listens to the port 98 on localhost
 nc -l 98
-

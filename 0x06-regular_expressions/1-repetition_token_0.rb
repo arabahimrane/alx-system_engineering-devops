@@ -1,6 +1,3 @@
 #!/usr/bin/env ruby
-#The regular expression must match hbtn
-
-input_str  = ARGV[0]
-regex = /hbt{1,5}n/
-  puts input_str.scan(regex).join
+# Repetition Token #0
+puts ARGV[0].scan(/hbtt{1,4}n/).join

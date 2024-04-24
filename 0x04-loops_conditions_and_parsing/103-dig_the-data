@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
-#read apatche in bash print ips of users
-awk '{print $1, $9}'  apache-access.log | sort | uniq -c | sort -nr
+# Displays the IP and status code of an Apache log file
+
+awk '{ printf "%s %s\n", $1, $9 }' "apache-access.log" | sort | uniq -c | sort -nr

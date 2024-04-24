@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-#kill last process child
-#ps auxf | grep "bash"
-pkill -f infinity
+# kills the infinity and beyond  program using sigkill signal
+
+# Terminate the infinate process
+pkill -15 "bash ./4-to_infinity_and_beyond" -f

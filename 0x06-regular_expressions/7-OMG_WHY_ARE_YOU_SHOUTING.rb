@@ -1,6 +1,3 @@
 #!/usr/bin/env ruby
-#The regular expression must match hbtn
-
-input_str  = ARGV[0]
-regex = /[A-Z]*/
-  puts input_str.scan(regex).join
+# OMG WHY ARE YOU SHOUTING?
+puts ARGV[0].scan(/[A-Z]/).join

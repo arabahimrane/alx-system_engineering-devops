@@ -1,27 +1,30 @@
 #!/usr/bin/python3
-""" for a given employee ID, returns information about his/her TODO list """
+"""For a given employee ID, returns information about
+their TODO list progress"""
 
-from requests import get
+import requests
 import sys
 
+if __name__ == "__main__":
 
-def get_employee_progress(em_id):
-    """ func to get data from api """
-    emp_infos = get('https://jsonplaceholder.typicode.com/users/{}/'
-                    .format(em_id)).json()
-    emp_progress = get('https://jsonplaceholder.typicode.com/users/{}/todos'
-                       .format(em_id)).json()
-    done_tasks = [task['title'] for task in emp_progress if task['completed']]
+    userId = sys.argv[1]
+    user = requests.get("https://jsonplaceholder.typicode.com/users/{}"
+                        .format(userId))
+
+    name = user.json().get('name')
+
+    todos = requests.get('https://jsonplaceholder.typicode.com/todos')
+    totalTasks = 0
+    completed = 0
+
+    for task in todos.json():
+        if task.get('userId') == int(userId):
+            totalTasks += 1
+            if task.get('completed'):
+                completed += 1
 
     print('Employee {} is done with tasks({}/{}):'
-          .format(emp_infos['name'], len(done_tasks), len(emp_progress)))
-    for task in done_tasks:
-        print(f"\t {task}")
+          .format(name, completed, totalTasks))
 
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./0-gather_data_from_an_API.py <employee_id>")
-    else:
-        employee_id = int(sys.argv[1])
-        get_employee_progress(employee_id)
+    print('\n'.join(["\t " + task.get('title') for task in todos.json()
+          if task.get('userId') == int(userId) and task.get('completed')]))

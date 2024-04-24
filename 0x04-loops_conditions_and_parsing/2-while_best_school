@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-#displays Best School 10 times with while.
-var=0
-while [[ $var -lt 10 ]]; do
-	echo "Best School"
-	var=$((var + 1))
+# Displays "Best School" 10 times using while loop
+
+i=0
+
+while [ $i -lt 10 ]; do
+    echo "Best School"
+    i=$((i+1))
 done

@@ -1,29 +1,9 @@
 #!/usr/bin/env bash
-# Install nginx
-sudo apt-get -y update
-sudo apt-get -y install nginx
-echo "Hello World!" | sudo tee /usr/share/nginx/html/index.html
+# configures an Nginx server so that /redirect_me is redirecting to another page
 
-sudo tee /etc/nginx/sites-available/default > /dev/null <<EOL
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
-    root /usr/share/nginx/html;
-    index index.html index.htm index.nginx-debian.html;
-    server_name _;
-
-    location / {
-        try_files \$uri \$uri/ =404;
-    }
-
-    location /redirect_me {
-        rewrite ^ https://www.youtube.com/c/tpauldike permanent;
-    }
-}
-EOL
-
-if sudo service nginx status > /dev/null; then
-    sudo service nginx restart
-else
-    sudo service nginx start
-fi
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+sed -i '/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+service nginx start

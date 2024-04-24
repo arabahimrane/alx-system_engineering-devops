@@ -7,10 +7,8 @@ import sys
 
 def get_employee_progress(em_id):
     """ func to get data from api """
-    emp_infos = get('https://jsonplaceholder.typicode.com/users/{}/'
-                    .format(em_id)).json()
-    emp_progress = get('https://jsonplaceholder.typicode.com/users/{}/todos'
-                       .format(em_id)).json()
+    emp_infos = get('https://jsonplaceholder.typicode.com/users/{em_id}/').json()
+    emp_progress = get('https://jsonplaceholder.typicode.com/users/{em_id}/todos').json()
     done_tasks = [task['title'] for task in emp_progress if task['completed']]
 
     print('Employee {} is done with tasks({}/{}):'

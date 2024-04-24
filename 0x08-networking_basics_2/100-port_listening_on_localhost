@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#destry network lke changing hosts withi
+
+nc -l 98
+

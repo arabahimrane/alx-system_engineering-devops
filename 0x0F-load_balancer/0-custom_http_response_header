@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+#install nginx
+#serve web page
+sudo apt-get -y update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+sudo mkdir -p /var/www/html/ /var/www/error
+sudo chmod -R 755 /var/www
+
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/404.html > /dev/null
+sudo bash -c 'cat > /etc/nginx/sites-available/default' <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    root   /var/www/html/;
+    index  index.html;
+    server_name _;
+    add_header X-Served-By \$HOSTNAME;
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+    error_page 404 /404.html;
+    location = /404.html{
+        root /usr/share/nginx/html/;
+        internal;
+    }
+}
+EOF
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+service nginx restart

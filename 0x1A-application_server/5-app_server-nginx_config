@@ -1,0 +1,34 @@
+#Building on your work in the previous tasks, configure Nginx
+server {
+    listen 80;
+    listen [::]:80 default_server;
+
+    server_name 54.242.111.189
+    add_header x-Served-By 481767-web-01;
+    location = /airbnb-onepage/ {
+        proxy_pass http://127.0.0.1:5000/airbnb-onepage/;
+    }
+
+    location ~/airbnb-dynamic/number_odd_or_even/(\d+)$ {
+    	proxy_pass http://127.0.0.1:5001/number_odd_or_even/$1;
+    }
+
+    location /api {
+	proxy_pass http://127.0.0.1:5002/api;
+    }
+    
+    location / {
+	proxy_pass http://127.0.0.1:5003/2-hbnb;
+    }
+    
+    location /static {
+	proxy_pass http://127.0.0.1:5003;
+    }
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+        root /usr/share/nginx/html;
+    }
+}
+

@@ -1,42 +1,39 @@
 <h1 align="center">
 	
-Alx Low_level_programming
+alx-system_engineering-devops
 
 </h1>
 
 <p align="center">
-	<b><i>Development repo for ALx low level programming project</i></b><br>
+	<b><i>Development repo for ALx system devops project</i></b><br>
 	For further information about alx africa and its projects, please refer to <a href="https://www.alxafrica.com/"><b>ALx africa</b></a>.
-
-<img align="center" src="https://img.shields.io/badge/Alx-0052CC?style=for-the-badge">
 </p>
-
-
-
+---
 <h3 align="center">
 	<a href="#%EF%B8%8F-about">About</a>
 	<span> · </span>
-	<a href="#-month00">Month-00</a>
+	<a href="#-month00">Month-x</a>
 	<span> · </span>
 </h3>
 
 
 <p align="center">
-
-
-<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--MF5Cp2yD--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/nyj855ggghu7rcc6ib7c.gif">
+<img src="https://img.shields.io/badge/Alx-0052CC?style=for-the-badge">
+<img src="https://images.pling.com/img/00/00/55/86/05/1423770/6f3bc10346f068b85fd5720d3fa2b57f241036ee661c1e578d40d95d65d3dc025e56.gif"/>
 </p>
+---
 
 ## 🗣️ About
 
-> _"alx_low_level_programming is a comprehensive repository designed to empower developers with the knowledge and skills required for low-level programming. Explore a range of topics including computer architecture, memory management, and system-level programming through code examples, exercises, and resources. Master the fundamentals and enhance your ability to build efficient and robust software systems."
+> _The aim of this project is to provide a comprehensive learning resource for individuals seeking to gain proficiency in DevOps scripting and command-line shell usage. 
 
-	🚀 TLDR: this project consists of coding low level functions (see below)
+	🚀 TLDR: this project consists of coding basic devops functions (see below)
 
 ## 📑 Month#00
 
 ---
 
-* [0x00. C - Hello, World](./0x00-hello_world) : hello, World!Explore the step-by-step journey of transforming source code into an executable program as you delve into the fascinating world of compilers.
-* [0x01-variables_if_else_while ](./0x01-variables_if_else_while) : focuses on programming concepts such as variables, if-else statements, and while loops.
- 
+* [0x00.Shell, navigation](./0x00-shell_basics) :cd and mkdir basic bash scripts.
+* [0x01. Shell, permissions](./0x01-shell_permissions) :whoami and Linux permissions.
+* [0x02. Shell, I/O Redirections and filters](./0x02-shell_redirections) : hands-on exploration of Shell scripting, I/O redirections, and filters, enabling participants to automate tasks, manipulate data, and handle files efficiently.
+* [0x03. Shell, init files, variables and expansions](./0x03-shell_variables_expansions) :  a comprehensive overview of essential shell scripting topics that are essential for any command-line user. 

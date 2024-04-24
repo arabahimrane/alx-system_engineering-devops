@@ -13,8 +13,8 @@ def get_employee_progress(em_id):
                        .format(em_id)).json()
     done_tasks = [task['title'] for task in emp_progress if task['completed']]
 
-    print('Employee {} is done with tasks({}/{}):'
-          .format(emp_infos['name'], len(done_tasks), len(emp_progress)))
+    print('Employee {} is done({}/{}):'
+          .format(emp_infos['name'][:18], len(done_tasks), len(emp_progress)))
     for task in done_tasks:
         print(f"\t {task}")
 

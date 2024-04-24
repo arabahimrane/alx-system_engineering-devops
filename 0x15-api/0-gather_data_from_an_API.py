@@ -1,27 +1,22 @@
-#!/usr/bin/python3
-""" for a given employee ID, returns information about his/her TODO list """
-
-from requests import get
+import requests
 import sys
 
+def get_employee_todo_list_progress(employee_id):
+    # Get the employee's details
+    employee = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}').json()
+    # Get the employee's TODOs
+    todos = requests.get(f'https://jsonplaceholder.typicode.com/users/{employee_id}/todos').json()
 
-def get_employee_progress(em_id):
-    """ func to get data from api """
-    emp_infos = get('https://jsonplaceholder.typicode.com/users/{em_id}/'
-                    .format(em_id)).json()
-    emp_progress = get('https://jsonplaceholder.typicode.com/users/{}/todos'
-                       .format(em_id)).json()
-    done_tasks = [task['title'] for task in emp_progress if task['completed']]
+    # Calculate the progress
+    total_tasks = len(todos)
+    done_tasks = len([todo for todo in todos if todo['completed']])
+    employee_name = employee['name']
 
-    print('Employee {} is done({}/{}):'
-          .format(emp_infos['name'][:18], len(done_tasks), len(emp_progress)))
-    for task in done_tasks:
-        print(f"\t {task}")
-
+    # Print the progress
+    print(f'Employee {employee_name} is done with tasks({done_tasks}/{total_tasks}):')
+    for todo in todos:
+        if todo['completed']:
+            print(f'\t {todo["title"]}')
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: ./0-gather_data_from_an_API.py <employee_id>")
-    else:
-        employee_id = int(sys.argv[1])
-        get_employee_progress(employee_id)
+    get_employee_todo_list_progress(int(sys.argv[1]))

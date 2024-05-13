@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
 # Create an RSA key pair
-ssh-keygen -t rsa -b 4096 -f school -N "betty"
+ssh-keygen -t rsa -b 4096 -f school -N "betty" >/dev/null 2>&1
 
-# Output the success message
-echo "school: OpenSSH private key"
+# Check if the private key is created
+if [ -f "school" ]; then
+    if ssh-keygen -y -f school >/dev/null 2>&1; then
+        echo "school: OpenSSH private key"
+    else
+        echo "Error: Failed to verify the private key type."
+    fi
+else
+    echo "Error: Failed to generate the key pair."
+fi
